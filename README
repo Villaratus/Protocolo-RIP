@@ -1,0 +1,67 @@
+//Los comentarios es lo que le añadí a la mañana en 5 minutos xD No se como va ésto, pero pone readme por lo que...
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		NetworkInterface interfaz = null;
+		try {
+			interfaz = NetworkInterface.getByName("wlan0");
+		} catch (SocketException e1) {
+			e1.printStackTrace();
+		}
+		Enumeration<InetAddress> enumDirs = interfaz.getInetAddresses();
+		String IP = null, IPt = null;
+		while(enumDirs.hasMoreElements()){
+			IPt = enumDirs.nextElement().getHostAddress();
+			if(IPt.startsWith("10")){
+				IP=IPt;
+			}
+		}
+		String nombreFich="ripconf-" + IP + ".txt";
+		Scanner lectura = null;
+		try {
+			lectura= new Scanner(new FileInputStream(nombreFich));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		//Habría que quitar desde aquí
+		ArrayList<String> listaConf = new ArrayList<String>();
+		while(lectura.hasNext()){
+		listaConf.add(lectura.next());
+		}
+		//Hasta aquí.
+		/*TreeMap<Integer, Router> hostsvecinos= new TreeMap<Integer, Router>();
+		 int i=1;
+	 		
+	         while(lectura.hasNext()){
+	 			
+	 			String IP;
+	 			String distancia="1"; //Siempre es 1.
+	}
+	         String linea = punteroLectura.next();
+	         String[] subRed = linea.split("/"); //Si hay "/" nos encontramos ante una subred. Se guarda en la lista pero NO se pasa a los demás hosts.
+
+	         //Router routerVecino = new Router(IP, distancia, thisIp, subRed);
+	         listaVecinos.put(i,routerVecino);
+	 			i++;
+	 		} 
+	 		
+	        */
+	}
+			
+	
+	
+	
